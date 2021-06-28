@@ -29,8 +29,9 @@ const ListUsersScreen = () => {
               data={users}
               renderItem={user =>
                 <View style={{ flex: 1, padding: 10 }}>
-                  <Text>{user.item.name}</Text>
-                  <Text>{user.item.username}</Text>
+                  <Text>{'Name: ' + user.item.name}</Text>
+                  <Text>{'Username: ' + user.item.username}</Text>
+                  <Text>{'Email: ' + user.item.email}</Text>
                 </View>
               }
               ListEmptyComponent={() => {

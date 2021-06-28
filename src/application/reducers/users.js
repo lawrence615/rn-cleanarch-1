@@ -8,7 +8,6 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_USERS_SUCCESS:
-      console.info(action.payload)
       return { allUsers: action.payload, error: null };
     case SET_USERS:
       return { allUsers: action.payload, error: null };

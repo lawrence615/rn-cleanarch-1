@@ -5,7 +5,6 @@ const pageLoadedFlow = () => ({ dispatch }) => next => action => {
   next(action)
 
   if (action.type === PAGE_LOADED) {
-    console.log('check 1')
     dispatch(usersActions.loadUsers)
   }
 }
