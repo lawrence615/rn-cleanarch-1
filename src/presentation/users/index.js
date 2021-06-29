@@ -4,6 +4,7 @@ import { View, Text, FlatList, ActivityIndicator, Dimensions, StyleSheet } from 
 
 import { pageLoaded } from 'actions/ui'
 import { getLoading } from 'selectors/ui'
+import { getError } from 'selectors/users'
 import { getUsers } from 'selectors/users'
 
 const SCREEN_HEIGHT = Dimensions.get("window").height
@@ -11,6 +12,7 @@ const SCREEN_HEIGHT = Dimensions.get("window").height
 const ListUsersScreen = () => {
   const dispatch = useDispatch()
   const loading = useSelector(getLoading)
+  const error = useSelector(getError)
   const users = useSelector(getUsers)
 
   useEffect(() => {
@@ -18,12 +20,11 @@ const ListUsersScreen = () => {
   }, [dispatch])
 
   return (
-    <View>
+    <View style={styles.container}>
       {
         loading ?
-          <View style={styles.activityIndicator}><ActivityIndicator /></View>
-          :
-          <View>
+          <View style={styles.activityIndicator}><ActivityIndicator size="large" color="#00ff00" /></View>
+          : <View>
             <FlatList
               keyExtractor={(user, index) => index.toString()}
               data={users}
@@ -35,16 +36,26 @@ const ListUsersScreen = () => {
                 </View>
               }
               ListEmptyComponent={() => {
-                return (<View style={{ justifyContent: "center", alignItems: "center", height: SCREEN_HEIGHT }}><Text>The list is empty</Text></View>)
+                return (
+                  <View style={{ justifyContent: "center", alignItems: "center", height: SCREEN_HEIGHT }}>
+                    <Text>The list is empty</Text>
+                    {error === null ? null : <Text>{error}</Text>}
+                  </View>
+                )
               }}
             />
           </View>
       }
+
     </View>
   )
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 10
+  },
   activityIndicator: {
     position: 'absolute',
     left: 0,

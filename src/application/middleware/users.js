@@ -10,7 +10,8 @@ const loadUsersFlow = ({ api }) => ({ dispatch }) => next => async (action) => {
       dispatch(loadUsersSuccess(users.data))
       dispatch(uiActions.setLoading(false))
     } catch (error) {
-      dispatch(loadUsersFailure(error))
+      dispatch(uiActions.setLoading(false))
+      dispatch(loadUsersFailure(error.message))
     }
   }
 }
